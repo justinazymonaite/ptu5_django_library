@@ -9,7 +9,7 @@ body {
 }
 
 header {
-    background-color: rgb(75, 75, 75);
+    background-color: rgb(59, 59, 66);
 }
 
 header, main, footer {
@@ -77,4 +77,14 @@ ul li a {
 
 ul li:hover {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+.genre_filter {
+    float: right;
+    background-color:  rgba(255, 255, 255, 0.2);
+    background-color: rgb(171, 177, 200);
+}
+
+.genre_filter .current {
+    background-color: rgb(91, 96, 116);
 }
