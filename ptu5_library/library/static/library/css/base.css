@@ -88,3 +88,29 @@ ul li:hover {
 .genre_filter .current {
     background-color: rgb(91, 96, 116);
 }
+
+.paginator {
+    margin: 1rem;
+}
+
+.paginator a, .paginator span {
+    display: inline-block;
+    padding: 0.25rem;
+    margin: 0.05rem;
+    text-decoration: none;
+    border: 1px solid rgb(47, 47, 61);
+    border-radius: 0.5rem;
+}
+
+.paginator span {
+    background-color:  rgb(47, 47, 61);
+    color: white;
+}
+
+.paginator a {
+    background-color:   white;
+}
+
+.paginator form {
+    display: inline-block;
+}
