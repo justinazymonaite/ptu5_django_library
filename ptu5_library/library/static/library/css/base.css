@@ -114,3 +114,26 @@ ul li:hover {
 .paginator form {
     display: inline-block;
 }
+
+ul.book_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+ul li.book {
+    flex-basis: 10rem;
+    border: 1px solid rgb(47, 47, 61);
+    background-color:  rgba(255, 255, 255, 0.2);
+    padding: 0;
+}
+
+ img {
+    max-width: 100%;
+}
+
+ul.book_list li.book h3 {
+    margin-top: 0;
+}
+
