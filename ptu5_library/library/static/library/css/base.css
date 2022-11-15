@@ -137,3 +137,10 @@ ul.book_list li.book h3 {
     margin-top: 0;
 }
 
+table {
+    margin: 0.5rem 1rem;
+}
+
+.form_error { 
+    color: rgb(184, 35, 35);
+}
