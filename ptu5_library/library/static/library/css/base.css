@@ -12,6 +12,21 @@ header {
     background-color: rgb(59, 59, 66);
 }
 
+header .container {
+    display: flex;
+    flex-direction: row;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+header .container span {
+    align-self: center;
+    color: rgb(0, 0, 0);
+    padding: 0.5rem;
+}
+
 header, main, footer {
     min-width: fit-content;
 }
