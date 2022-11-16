@@ -13,6 +13,6 @@
             {% endfor %}
     {% endif %}
     <div class='summary'>
-        {{ object.summary }}
+        {{ object.summary|safe }}
     </div>
 {% endblock content %}
