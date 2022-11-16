@@ -15,15 +15,15 @@ class BookAdmin(admin.ModelAdmin):
 
 
 class BookInstanceAdmin(admin.ModelAdmin):
-    list_display = ('unique_id', 'book', 'status', 'due_back')
+    list_display = ('unique_id', 'book', 'status', 'due_back', 'reader')
     list_filter = ('status', 'due_back')
-    readonly_fields = ('unique_id', ) # butinai reikia kablelio, kad butu kaip tuple
-    search_fields = ('unique_id', 'book__title', 'book__author__last_name__exact') # django lookups
-    list_editable = ('status', 'due_back') # nusirodom laukus, kuriuos norim redaguoti vietoje
+    readonly_fields = ('unique_id', 'is_overdue') # butinai reikia kablelio, kad butu kaip tuple
+    search_fields = ('unique_id', 'book__title', 'book__author__last_name__exact', 'reader__last_name') # django lookups
+    list_editable = ('status', 'due_back', 'reader') # nusirodom laukus, kuriuos norim redaguoti vietoje
 
     fieldsets = (
         ('General', {'fields': ('unique_id', 'book')}),
-        ('Availability', {'fields': (('status', 'due_back'),)}), # idejus tuple i tuple galime padaryti, kad laukai atsidurtu vienoje eiluteje
+        ('Availability', {'fields': (('status', 'due_back', 'is_overdue'),)}), # idejus tuple i tuple galime padaryti, kad laukai atsidurtu vienoje eiluteje
     )
 
 class AuthorAdmin(admin.ModelAdmin):
