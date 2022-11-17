@@ -214,3 +214,7 @@ table {
 .alert-error {
     color: rgb(184, 35, 35);
 }
+
+.alert-success {
+    color: rgb(28, 149, 56);
+}

@@ -3,19 +3,13 @@
 {% block content %}
 <h1>Register Library Account</h1>
 
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-    {% endfor %}
-{% endif %}
-
 <form action="" method="post">
     {% csrf_token %}
     <div class="table_grid form_grid">
         <div><label for="username">Username</label></div>
-        <div><input type="text" name="username" placeholder="username"></div>
+        <div><input type="text" name="username" placeholder="username" value="{{ request.POST.username }}"></div>
         <div><label for="email">E-mail</label></div>
-        <div><input type="text" name="email" placeholder="email"></div>
+        <div><input type="text" name="email" placeholder="email" value="{{ request.POST.email }}"></div>
         <div><label for="password">Password</label></div>
         <div><input type="password" name="password"></div>
         <div><label for="password2">Repeat Password</label></div>
