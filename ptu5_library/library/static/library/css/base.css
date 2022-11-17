@@ -165,6 +165,21 @@ table {
     padding: 0.5rem;
 }
 
+.form_grid {
+    grid-template-columns: 6rem auto;
+}
+
+.form_grid div {
+    display: inline-block;
+    align-self: stretch;
+    justify-self: stretch;
+    padding: 0.5rem;
+}
+
+.form_grid input {
+    width: 30%;
+}
+
 .my_books_table {
     grid-template-columns: 3fr 1fr 1fr;
 }
@@ -190,4 +205,12 @@ table {
 .overdue {
     color: rgb(184, 35, 35);
     font-weight: bold;
+}
+
+.alert {
+    padding: 0.5rem 1rem;
+}
+
+.alert-error {
+    color: rgb(184, 35, 35);
 }
