@@ -90,7 +90,7 @@ class BookInstance(models.Model):
 class BookReview(models.Model):
     book = models.ForeignKey(Book, verbose_name="book", on_delete=models.CASCADE, related_name='reviews')
     reader = models.ForeignKey(get_user_model(), verbose_name='reader', on_delete=models.CASCADE, related_name='book_reviews')
-    created_at = models.DateTimeField("ceated at", auto_now_add=True)
+    created_at = models.DateTimeField("created at", auto_now_add=True)
     content = models.TextField("content", max_length=2000)
 
     class Meta:

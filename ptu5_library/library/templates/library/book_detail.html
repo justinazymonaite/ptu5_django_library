@@ -10,7 +10,7 @@
         <p>Genre(s): {# object.genre.all|join:", "#}
             {% for genre in object.genre.all %}
                 {{ genre.link_filtered_books }}
-            {% endfor %}
+            {% endfor %}</p>
     {% endif %}
     <div class='summary'>
         {{ object.summary|safe }}
