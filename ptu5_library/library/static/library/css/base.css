@@ -181,7 +181,7 @@ table {
 }
 
 .my_books_table {
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 5fr 1fr 1fr 1fr;
 }
 
 .table_grid_cell {
