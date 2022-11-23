@@ -5,10 +5,11 @@ from django.utils.html import format_html
 from django.urls import reverse
 from django.utils.timezone import datetime
 from tinymce.models import HTMLField
+from django.utils.translation import gettext_lazy as _
 
 
 class Genre(models.Model):
-    name = models.CharField('name', max_length=200, help_text="Enter the name of book genre")
+    name = models.CharField(_('name'), max_length=200, help_text=_("Enter the name of book genre"))
 
     def __str__(self):
         return self.name
@@ -21,15 +22,15 @@ class Genre(models.Model):
         ordering = ['name']
 
 class Author(models.Model):
-    first_name = models.CharField('first name', max_length=50)
-    last_name = models.CharField('last name', max_length=50)
+    first_name = models.CharField(_('first name'), max_length=50)
+    last_name = models.CharField(_('last name'), max_length=50)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
     def display_books(self) -> str:
         return ', '.join(book.title for book in self.books.all())
-    display_books.short_description = 'books'
+    display_books.short_description = _('books')
 
     def link(self) -> str:
         link = reverse('author', kwargs={'author_id':self.id})
@@ -37,23 +38,23 @@ class Author(models.Model):
 
     class Meta: # aprasamoji klase klasei, cia aprasomos konfiguracijos
         ordering = ['last_name', 'first_name']
-        verbose_name = 'Autorius'
-        verbose_name_plural = 'Autoriai'
+        verbose_name = _('author')
+        verbose_name_plural = _('authors')
 
 class Book(models.Model):
-    title = models.CharField('title', max_length=255)
-    summary = HTMLField('summary',  max_length=1000, help_text='Trumpas knygos aprašymas')
-    isbn = models.CharField('ISBN', max_length=13, null=True, blank=True, help_text='<a href="https://www.isbn-international.org/content/what-isbn" target="_blank">ISBN code</a> consisting of 13 symbols')
+    title = models.CharField(_('title'), max_length=255)
+    summary = HTMLField(_('summary'),  max_length=1000, help_text=_('Short description'))
+    isbn = models.CharField('ISBN', max_length=13, null=True, blank=True, help_text=_('<a href="https://www.isbn-international.org/content/what-isbn" target="_blank">ISBN code</a> consisting of 13 symbols'))
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, blank=True, related_name='books')
-    genre = models.ManyToManyField(Genre, help_text="Choose genre(s) for this book", verbose_name='genre(s)')
-    cover = models.ImageField("cover", upload_to='covers', blank=True, null=True)
+    genre = models.ManyToManyField(Genre, help_text=_("Choose genre(s) for this book"), verbose_name=_('genre(s)'))
+    cover = models.ImageField(_("cover"), upload_to='covers', blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.author} - {self.title}"
 
     def display_genre(self) -> str:
         return ', '.join(genre.name for genre in self.genre.all()[:3])
-    display_genre.short_description = 'genre(s)'
+    display_genre.short_description = _('genre(s)')
 
     # def author_link(self) -> str:
     #     link = reverse('author', kwargs={'author_id' : self.author.id})
@@ -61,19 +62,19 @@ class Book(models.Model):
 
 
 class BookInstance(models.Model):
-    unique_id = models.UUIDField('unique ID', default=uuid.uuid4, editable=False)
-    book = models.ForeignKey(Book, verbose_name="book", on_delete=models.CASCADE)
-    due_back = models.DateField('due back', null=True, blank=True)
+    unique_id = models.UUIDField(_('unique ID'), default=uuid.uuid4, editable=False)
+    book = models.ForeignKey(Book, verbose_name=_("book"), on_delete=models.CASCADE)
+    due_back = models.DateField(_('due back'), null=True, blank=True)
 
     LOAN_STATUS = (
-        ('m', "managed"),
-        ('t', 'taken'),
-        ('a', 'available'),
-        ('r', 'reserved')
+        ('m', _("managed")),
+        ('t', _('taken')),
+        ('a', _('available')),
+        ('r', _('reserved'))
     )
 
-    status = models.CharField('status', max_length=1, choices=LOAN_STATUS, default='m')
-    reader = models.ForeignKey(get_user_model(), verbose_name="reader", on_delete=models.SET_NULL, null=True, blank=True, related_name='taken_books')
+    status = models.CharField(_('status'), max_length=1, choices=LOAN_STATUS, default='m')
+    reader = models.ForeignKey(get_user_model(), verbose_name=_("reader"), on_delete=models.SET_NULL, null=True, blank=True, related_name='taken_books')
 
     @property
     def is_overdue(self):
@@ -88,10 +89,10 @@ class BookInstance(models.Model):
         ordering = ['due_back']
 
 class BookReview(models.Model):
-    book = models.ForeignKey(Book, verbose_name="book", on_delete=models.CASCADE, related_name='reviews')
-    reader = models.ForeignKey(get_user_model(), verbose_name='reader', on_delete=models.CASCADE, related_name='book_reviews')
-    created_at = models.DateTimeField("created at", auto_now_add=True)
-    content = models.TextField("content", max_length=2000)
+    book = models.ForeignKey(Book, verbose_name=_("book"), on_delete=models.CASCADE, related_name='reviews')
+    reader = models.ForeignKey(get_user_model(), verbose_name=_('reader'), on_delete=models.CASCADE, related_name='book_reviews')
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    content = models.TextField(_("content"), max_length=2000)
 
     class Meta:
         ordering = ('-created_at',)

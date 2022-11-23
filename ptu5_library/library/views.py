@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
 from . forms import BookReviewForm, BookInstanceForm, BookInstanceUpdateForm
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 
@@ -81,7 +82,7 @@ class BookDetailView(FormMixin, DetailView):
         if form.is_valid():
             return self.form_valid(form)
         else:
-            messages.error(self.request, "You're posting too much!")
+            messages.error(self.request, _("You're posting too much!"))
             return self.form_invalid(form)
 
     def get_initial(self):
@@ -94,7 +95,7 @@ class BookDetailView(FormMixin, DetailView):
         form.instance.book = self.get_object()
         form.instance.reader = self.request.user
         form.save()
-        messages.success(self.request, "Your review has been posted.")
+        messages.success(self.request, _("Your review has been posted."))
         return super().form_valid(form)
         
 
@@ -131,7 +132,7 @@ class UserBookInstanceUpdateView(LoginRequiredMixin, UserPassesTestMixin, Update
     def form_valid(self, form):
         form.instance.reader = self.request.user
         form.instance.status = 't'
-        messages.success(self.request, "Book taken or extended.")
+        messages.success(self.request, _("Book taken or extended."))
         return super().form_valid(form)
 
     def test_func(self):
@@ -142,9 +143,9 @@ class UserBookInstanceUpdateView(LoginRequiredMixin, UserPassesTestMixin, Update
         context = super().get_context_data(**kwargs)
         context['book_instance'] = self.get_object()
         if context['book_instance'].status == 't':
-            context['action'] = 'Extend'
+            context['action'] = _('Extend')
         else:
-            context['action'] = 'Take'
+            context['action'] = _('Take')
         return context
 
 
@@ -160,7 +161,7 @@ class UserBookInstanceDeleteView(LoginRequiredMixin, UserPassesTestMixin, Delete
     def form_valid(self, form):
         book_instance = self.get_object()
         if book_instance.status == 't':
-            messages.success(self.request, "Book returned.")
+            messages.success(self.request, _("Book returned."))
         else:
-            messages.success(self.request, "Book reservation canceled.")
+            messages.success(self.request, _("Book reservation canceled."))
         return super().form_valid(form)

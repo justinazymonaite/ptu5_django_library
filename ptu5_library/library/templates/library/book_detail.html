@@ -1,13 +1,14 @@
 {% extends 'library/base.html' %}
+{% load i18n %}
 {% block title %}{{ object }}{% endblock title %}
 {% block content %}
     <h1>{{ object.title }}</h1>
-    <h3>by {{ object.author.link }}</h3>
+    <h3>{% trans "by" %} {{ object.author.link }}</h3>
     {% if object.isbn %}
         <p>ISBN: {{object.isbn}}</p>
     {% endif %}
     {% if object.genre %}
-        <p>Genre(s): {# object.genre.all|join:", "#}
+        <p>{% trans "Genre(s):" %} {# object.genre.all|join:", "#}
             {% for genre in object.genre.all %}
                 {{ genre.link_filtered_books }}
             {% endfor %}</p>
@@ -15,14 +16,14 @@
     <div class='summary'>
         {{ object.summary|safe }}
     </div>
-    <h2>Reviews</h2>
+    <h2>{% trans "Reviews" %}</h2>
     {% if user.is_authenticated %}
         <div class='review_form'>
-            <p>If you have read this book, please leave a review.</p>
+            <p>{% trans "If you have read this book, please leave a review." %}</p>
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <p><button type="submit">Post review</button></p>
+                <p><button type="submit">{% trans "Post review" %}</button></p>
             </form>
         </div>
     {% endif %}
